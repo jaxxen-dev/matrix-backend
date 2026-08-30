@@ -8,7 +8,7 @@
 
 ***The system is 100% reproducible from this repository.***
 
-[![flake check](https://github.com/jx-wi/matrix-backend/actions/workflows/flake-check.yml/badge.svg)](https://github.com/jx-wi/matrix-backend/actions/workflows/flake-check.yml) [![NixOS](https://img.shields.io/badge/NixOS-25.11-5277C3?logo=nixos&logoColor=white)](https://nixos.org) [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![flake check](https://github.com/jaxxen-dev/matrix-backend/actions/workflows/flake-check.yml/badge.svg)](https://github.com/jaxxen-dev/matrix-backend/actions/workflows/flake-check.yml) [![NixOS](https://img.shields.io/badge/NixOS-25.11-5277C3?logo=nixos&logoColor=white)](https://nixos.org) [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ---
 
@@ -119,7 +119,7 @@ sudo -i
 ```
 
 ```
-git clone https://github.com/jx-wi/matrix-backend.git
+git clone https://github.com/jaxxen-dev/matrix-backend.git
 nix --experimental-features "nix-command flakes" run nixpkgs#disko -- --mode destroy,format,mount matrix-backend/disko.nix
 nixos-generate-config --root /mnt --no-filesystems --dir matrix-backend
 mkdir -p /mnt/etc/nixos
@@ -178,7 +178,7 @@ Registration is disabled by default. To create the initial admin account:
 While ssh'ed into matrix-backend:
 
 ```
-nh os switch github:jx-wi/matrix-backend
+nh os switch github:jaxxen-dev/matrix-backend
 ```
 
 > [!NOTE]
@@ -226,7 +226,7 @@ sops secrets/matrix-backend/garth/password.yaml     # hashed_password
 ```
 # rotate a secret value (token, password, livekit secret, …)
 sops secrets/matrix-backend/<file>.yaml   # change the value, save
-nh os switch github:jx-wi/matrix-backend  # or let the weekly timer apply it
+nh os switch github:jaxxen-dev/matrix-backend  # or let the weekly timer apply it
 
 # rotate a login user's SSH key
 #   edit users.users.<name>.openssh.authorizedKeys.keys in configuration.nix, commit, rebuild

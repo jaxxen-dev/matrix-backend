@@ -125,12 +125,12 @@ in {
     services = {
       lk-jwt-service.environment.LIVEKIT_FULL_ACCESS_HOMESERVERS = "${homeserver}";
       nh-os-switch = {
-        description = "Run nh os switch github:jx-wi/matrix-backend";
+        description = "Run nh os switch github:jaxxen-dev/matrix-backend";
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${pkgs.nh}/bin/nh os switch github:jx-wi/matrix-backend";
+          ExecStart = "${pkgs.nh}/bin/nh os switch github:jaxxen-dev/matrix-backend";
           StandardOutput = "journal";
           StandardError = "journal";
         };
@@ -192,7 +192,7 @@ in {
     lockKernelModules = true;
     acme = {
       acceptTerms = true;
-      defaults.email = "jxwi@proton.me";
+      defaults.email = "github@jaxxen.dev";
       certs."${homeserver}" = {
         inherit dnsProvider;
         webroot = null;

@@ -36,7 +36,7 @@ There are effectively two places config can live, and only one wins:
 1. **This GitHub repo `main`** — the real source of truth.
 2. **`/etc/nixos` on the guest** — a working copy. Edits here are transient.
 
-`systemd.timers.nh-os-switch` fires **Monday 09:00 server-local** and runs `nh os switch github:jx-wi/matrix-backend` as root, converging the box on repo `main`. So any change made only on the box is reverted at the next tick. The Initialization registration-toggle in the README exploits this deliberately (open registration, create admin, it auto-closes). For anything durable: change it here, push, let it deploy.
+`systemd.timers.nh-os-switch` fires **Monday 09:00 server-local** and runs `nh os switch github:jaxxen-dev/matrix-backend` as root, converging the box on repo `main`. So any change made only on the box is reverted at the next tick. The Initialization registration-toggle in the README exploits this deliberately (open registration, create admin, it auto-closes). For anything durable: change it here, push, let it deploy.
 
 CI auto-update chain: `flake-update.yml` runs **Monday 06:00 UTC**, does `nix flake update`, opens a PR, and `gh pr merge --auto --squash` with `secrets.PAT`. `flake-check.yml` evaluates + dry-run builds. ~3h later the guest pulls and switches. Net effect: **upstream input bumps reach production with CI gating, not per-change human review.** See [Threat model](#threat-model--deferred-hardening).
 
@@ -87,7 +87,7 @@ nixos-rebuild build-vm --flake .#matrix-backend     # boots a throwaway local QE
 
 `build-vm` is the closest thing to a test rig and needs no inbound networking — it runs entirely on the dev machine. Caveat: sops secrets won't decrypt inside it (no host age key), so secret-dependent services will fail to start there; it still validates evaluation, boot, the boot loader, and anything not gated on a secret. There is no NixOS VM integration test in `flake.nix` yet — adding one (`checks.<system>`) would be the highest-value testing improvement given the access constraints.
 
-After merging, confirm on the box over Tailscale: `systemctl --failed`, `journalctl -u <svc> -b`, `tailscale status`, `nh os switch github:jx-wi/matrix-backend` if you don't want to wait for the timer.
+After merging, confirm on the box over Tailscale: `systemctl --failed`, `journalctl -u <svc> -b`, `tailscale status`, `nh os switch github:jaxxen-dev/matrix-backend` if you don't want to wait for the timer.
 
 ## Non-obvious choices (don't "fix" these without reading)
 

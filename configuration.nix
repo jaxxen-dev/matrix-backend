@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  homeserver = "ironmere.duckdns.org";
-  dnsProvider = "duckdns";
-  dnsTokenEnvVar = "DUCKDNS_TOKEN_FILE";
+  homeserver = "matrix.social-vats.com";
+  dnsProvider = "cloudflare";
+  dnsTokenEnvVar = "CF_DNS_API_TOKEN_FILE";
 in {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
